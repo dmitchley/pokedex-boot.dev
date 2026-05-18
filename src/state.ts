@@ -2,15 +2,25 @@ import { createInterface, type Interface } from 'readline';
 import { getCommands } from './getCommands.js';
 //const readline = require('node:readline');
 import { ReadLine } from 'node:readline';
+import { PokeAPI } from './pokeapi.js';
+import { stat } from 'node:fs';
+
+// let api = new PokeAPI();
+// let poki = api.fetchLocations();
+const pokeApiObject = new PokeAPI();
+
 export type State = {
   readline: Interface;
   commands: Record<string, CLICommand>;
+  pokeApi: PokeAPI;
+  nextLocationsURL: string | null;
+  prevLocationsURL: string | null;
 };
 
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => void;
+  callback: (state: State) => Promise<void>;
 };
 
 export const initState = (): State => {
@@ -21,9 +31,13 @@ export const initState = (): State => {
   });
 
   const commands = getCommands();
+  const pokeApi = new PokeAPI();
 
   return {
     readline: rl,
     commands: commands,
+    pokeApi,
+    nextLocationsURL: null,
+    prevLocationsURL: null,
   };
 };
