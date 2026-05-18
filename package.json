@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "tsc --watch",
+    "dev": "npx tsc && node dist/main.js",
     "test": "vitest --run"
   },
   "devDependencies": {
