@@ -1,15 +1,6 @@
-import { stdin, stdout } from 'node:process';
-import { createInterface } from 'node:readline';
-// import { commandExit } from './command_exit.js';
-// import { commandHelp } from './command_help.js';
-// import { CLICommand } from './command.js';
 import { getCommands } from './getCommands.js';
-
-const rl = createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: 'Pokedex > ',
-});
+import { initState } from './state.js';
+const listOfCommands = initState();
 
 // main loop file
 
@@ -22,30 +13,31 @@ export const startREPL = (): void => {
     console.log(`${CurrentCommands[i].name}: ${CurrentCommands[i].description}`);
   }
 
-  rl.prompt();
+  listOfCommands.readline.prompt();
 
-  rl.on('line', input => {
+  listOfCommands.readline.on('line', input => {
     if (input.length < 1) {
       //console.log('hey');
-      rl.prompt();
+      listOfCommands.readline.prompt();
     } else {
       const current = cleanInput(input);
       const command = current[0];
-      const listOfCommands = getCommands();
+
+      // console.log('listOfCommands ' + JSON.stringify(listOfCommands));
 
       switch (command) {
-        case listOfCommands.help.name:
-          listOfCommands.help.callback(listOfCommands);
+        case listOfCommands.commands.help.name:
+          listOfCommands.commands.help.callback(listOfCommands);
           break;
-        case listOfCommands.exit.name:
-          listOfCommands.exit.callback(listOfCommands);
+        case listOfCommands.commands.exit.name:
+          listOfCommands.commands.exit.callback(listOfCommands);
           break;
         default:
           console.log('Unknown command');
           break;
       }
 
-      rl.prompt();
+      listOfCommands.readline.prompt();
 
       // let current = cleanInput(input);
       // let listOfCommands = getCommands();
