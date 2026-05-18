@@ -7,7 +7,7 @@ import { stat } from 'node:fs';
 
 // let api = new PokeAPI();
 // let poki = api.fetchLocations();
-const pokeApiObject = new PokeAPI();
+//const pokeApiObject = new PokeAPI();
 
 export type State = {
   readline: Interface;
@@ -31,12 +31,12 @@ export const initState = (): State => {
   });
 
   const commands = getCommands();
-  const pokeApi = new PokeAPI();
+  const pokeApi = new PokeAPI(3000);
 
   return {
     readline: rl,
     commands: commands,
-    pokeApi,
+    pokeApi: pokeApi,
     nextLocationsURL: null,
     prevLocationsURL: null,
   };
