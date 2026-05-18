@@ -1,11 +1,8 @@
-import { cleanInput } from './repl.js';
+import { startREPL } from './repl.js';
+import { stdin, stdout } from 'node:process';
 
-function main(): void {
-  console.log('Hello, world!');
+function main() {
+  startREPL();
 }
 
-//main();
-
-let returnitem = cleanInput('hello darkness my old friend');
-
-console.log('returnitem value is ' + returnitem + 'and the type is ' + typeof returnitem);
+main();
