@@ -15,6 +15,7 @@ export type State = {
   pokeApi: PokeAPI;
   nextLocationsURL: string | null;
   prevLocationsURL: string | null;
+  args: any;
 };
 
 export type CLICommand = {
@@ -39,5 +40,6 @@ export const initState = (): State => {
     pokeApi: pokeApi,
     nextLocationsURL: null,
     prevLocationsURL: null,
+    args: null,
   };
 };

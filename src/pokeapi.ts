@@ -27,21 +27,27 @@ export class PokeAPI {
   }
 
   async fetchLocation(locationName: string): Promise<Location> {
-    const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
+    try {
+      const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
 
-    const cached = this.cache.get<Location>(url);
-    if (cached) {
-      return cached;
+      const cached = this.cache.get<Location>(url);
+      if (cached) {
+        return cached;
+      }
+
+      const res = await fetch(url);
+      // if (!res.ok) {
+      //   throw new Error(`PokeAPI request failed: ${res.status} ${res.statusText} for ${url}`);
+
+      // }
+
+      const location = (await res.json()) as Location;
+      this.cache.add(url, location);
+      return location;
+    } catch (err: any) {
+      console.warn(`PokeAPI request failed: ${err} `);
     }
-
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`PokeAPI request failed: ${res.status} ${res.statusText} for ${url}`);
-    }
-
-    const location = (await res.json()) as Location;
-    this.cache.add(url, location);
-    return location;
+    return { names: [], pokemon_encounters: [] };
   }
 }
 
@@ -53,6 +59,8 @@ export type ShallowLocations = {
 };
 
 export type Location = {
-  name: string;
-  url: string;
+  name?: string;
+  url?: string;
+  names: any[];
+  pokemon_encounters: any[];
 };

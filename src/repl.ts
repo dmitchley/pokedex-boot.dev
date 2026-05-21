@@ -23,6 +23,8 @@ export const startREPL = async (): Promise<void> => {
       } else {
         const current = cleanInput(input);
         const command = current[0];
+        listOfCommands.args = current[1];
+        //console.log('current second arg ' + command);
 
         // console.log('listOfCommands ' + JSON.stringify(listOfCommands));
 
@@ -39,6 +41,10 @@ export const startREPL = async (): Promise<void> => {
           case listOfCommands.commands.mapb.name:
             await listOfCommands.commands.mapb.callback(listOfCommands);
             break;
+          case listOfCommands.commands.explore.name:
+            await listOfCommands.commands.explore.callback(listOfCommands);
+            break;
+
           default:
             console.log('Unknown command');
             break;
