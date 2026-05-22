@@ -4,6 +4,7 @@ import { CLICommand } from './state.js';
 import { commandMap } from './command_map.js';
 import { commandMapb } from './command_Previous_Map.js';
 import { commandExplore } from './command_explore.js';
+import { commandCatch } from './command_catch.js';
 
 export function getCommands(): Record<string, CLICommand> {
   return {
@@ -31,6 +32,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: 'explore',
       description: 'Displays the name of a location area as an argumen',
       callback: commandExplore,
+    },
+    catch: {
+      name: 'catch',
+      description: 'Catches the name of a Pokemon as an argumen',
+      callback: commandCatch,
     },
   };
 }

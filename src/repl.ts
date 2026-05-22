@@ -44,6 +44,9 @@ export const startREPL = async (): Promise<void> => {
           case listOfCommands.commands.explore.name:
             await listOfCommands.commands.explore.callback(listOfCommands);
             break;
+          case listOfCommands.commands.catch.name:
+            await listOfCommands.commands.catch.callback(listOfCommands);
+            break;
 
           default:
             console.log('Unknown command');

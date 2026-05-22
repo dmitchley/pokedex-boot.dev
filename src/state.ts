@@ -4,6 +4,7 @@ import { getCommands } from './getCommands.js';
 import { ReadLine } from 'node:readline';
 import { PokeAPI } from './pokeapi.js';
 import { stat } from 'node:fs';
+import { Pokemon } from './pokeapi.js';
 
 // let api = new PokeAPI();
 // let poki = api.fetchLocations();
@@ -16,6 +17,7 @@ export type State = {
   nextLocationsURL: string | null;
   prevLocationsURL: string | null;
   args: any;
+  caughtPokemon: Record<string, Pokemon>;
 };
 
 export type CLICommand = {
@@ -41,5 +43,6 @@ export const initState = (): State => {
     nextLocationsURL: null,
     prevLocationsURL: null,
     args: null,
+    caughtPokemon: {},
   };
 };
