@@ -1,14 +1,14 @@
-import { State } from './state.js';
+import type { State } from './state.js';
 
-export const commandCatch = async (state: State) => {
-  if (!state.args) {
-    console.log('Please provide a pokemon');
-    return;
-  }
+export async function commandCatch(state: State, ...args: string[]) {
+  // if (args.length !== 1) {
+  //   throw new Error('you must provide a pokemon name');
+  // }
 
-  const pokemon = await state.pokeApi.fetchPokemon(state.args);
-  console.log(`Throwing a Pokeball at ${state.args}...`);
-  // console.log(JSON.stringify(typeof pokemon.base_experience));
+  const name = state.args;
+  const pokemon = await state.pokeApi.fetchPokemon(name);
+
+  console.log(`Throwing a Pokeball at ${pokemon.name}...`);
 
   const res = Math.floor(Math.random() * pokemon.base_experience);
   if (res > 40) {
@@ -17,6 +17,6 @@ export const commandCatch = async (state: State) => {
   }
 
   console.log(`${pokemon.name} was caught!`);
-  //  console.log('You may now inspect it with the inspect command.');
+  console.log('You may now inspect it with the inspect command.');
   state.caughtPokemon[pokemon.name] = pokemon;
-};
+}
